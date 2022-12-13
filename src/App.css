@@ -59,3 +59,22 @@ width: fit-content;
     color:#000;
 
 }
+
+.main-container{
+display:flex;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+}
+
+.project{
+    width:300px;
+    height:450px;
+    position:relative;
+    border:none;
+    overflow: hidden;
+}
+
+.project div{
+    position:absolute;
+}

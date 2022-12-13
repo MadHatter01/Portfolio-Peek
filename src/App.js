@@ -9,6 +9,15 @@ const App = () => {
     const data = await response.json();
     console.log(data.projects);
   };
+
+  const project1 = {
+    
+      "id": 1,
+      "title": "Project - A",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "year": "2022"
+    
+  }
   useEffect(() => {
     searchProjects();
   }, []);
@@ -29,7 +38,18 @@ const App = () => {
       
       <div class="main-container">
         
-      <p> Main cards</p>
+      <div class="project">
+      <div>
+      <p>{project1.year}</p>
+      </div>
+      <div>
+      <img src="https://placeimg.com/640/480/any" alt = "project placeholder">
+      </img></div>
+      <div class="card-body">
+      <p>{project1.title}</p>
+      </div>
+    
+      </div>
       </div>
     </div>
   );
