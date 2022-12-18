@@ -1,23 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import Project from './Components/Project.jsx';
 
 const API_URL =
   "https://raw.githubusercontent.com/ninjas-at-work/Sample-JSON/main/projects.json";
 const App = () => {
-  const searchProjects = async () => {
+  const [projects, setProjects] = useState([])
+  const [search, setSearch] = useState([])
+  const searchProjects = async (title) => {
     const response = await fetch(`${API_URL}`);
     const data = await response.json();
-    console.log(data.projects);
+    
+    if(title === undefined){
+    setProjects(data.projects);
+    }
+    else{
+   let  temp = data.projects
+   let final =[]
+     temp.forEach(element => {
+     if(element.title === search){
+      final.push(element)
+     }
+     console.log(final)
+     setProjects(element)
+     });
+   
+    }
+    console.log(projects)
   };
 
-  const project1 = {
-    
-      "id": 1,
-      "title": "Project - A",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      "year": "2022"
-    
-  }
   useEffect(() => {
     searchProjects();
   }, []);
@@ -27,29 +38,24 @@ const App = () => {
       <div className="search">
         <input
           placeholder="Search Projects"
-          value="Project-A"
-          onChange={() => {}}
+          value={search}
+          onChange={(e) => {setSearch(e.target.value)}}
         />
-        <button id="searchbtn" onClick={() => {}}>
+        <button id="searchbtn" onClick={() => {searchProjects(search)}}>
           Search
         </button>
 
       </div>
       
-      <div class="main-container">
-        
-      <div class="project">
-      <div>
-      <p>{project1.year}</p>
-      </div>
-      <div>
-      <img src="https://placeimg.com/640/480/any" alt = "project placeholder">
-      </img></div>
-      <div class="card-body">
-      <p>{project1.title}</p>
-      </div>
-    
-      </div>
+      <div className="main-container">
+      {
+        projects?.length > 0 ?
+       ( projects.map((project)=>(
+          <Project key={project.id} project={project} imgurl={"https://placeimg.com/640/480/arch"}/>
+        ))):
+<div>No projects</div>
+      }  
+     
       </div>
     </div>
   );
